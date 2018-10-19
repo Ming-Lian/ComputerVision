@@ -144,6 +144,19 @@ plt.show()
 
 - **打开摄像头**
 
+解决opencv无法打开树莓派上的CSI摄像头的问题：
+
+> - 原因分析：
+> 
+> 树莓派专用CSI摄像头插到树莓派的CSI口上并在在raspi-config中打开后就可以使用Raspistill命令直接使用，但如果在OpenCV中调用CSI摄像头会出现无数据的现象（cv2.VideoCapture（0）这时不会报错）。
+> 
+> 这是因为树莓派中的camera module是放在/boot/目录中以固件形式加载的，不是一个标准的V4L2的摄像头驱动，所以加载起来之后会找不到/dev/video0的设备节点。
+> - 解决方法：
+> 
+> 在/etc/modules里面添加一行bcm2835-v4l2（小写的L）就能解决问题
+> 
+> 注意：修改后需要重启，才能是刚才的修改生效
+
 要使用摄像头，需要使用cv2.VideoCapture(0)创建VideoCapture对象，参数：0指的是摄像头的编号。如果你电脑上有两个摄像头的话，访问第2个摄像头就可以传入1。
 
 ```
@@ -414,3 +427,5 @@ print(hsv_blue)  # [[[120 255 255]]]
 (1) [Image and Video Analysis](https://pythonprogramming.net/loading-images-python-opencv-tutorial/)
 
 (2) [ex2tron's Blog，【视觉与图像】OpenCV篇：Python+OpenCV实用教程 ](http://ex2tron.wang/opencv-python/)
+
+(3) [csdn博客：【树莓派】在OpenCV中调用CSI摄像头](https://blog.csdn.net/Deiki/article/details/71123947?utm_source=blogxgwz1)
