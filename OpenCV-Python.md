@@ -244,6 +244,16 @@ outfile.release()
 cv2.destroyAllWindows()
 ```
 
+注意：当从视频文件中读取视频，并想将修改后的内容输出到新视频文件中，此时需要保证输出视频文件的fourcc,fps,长和宽与原视频一致，此时需要通过`get( )`获取原视频的一些参数：
+
+```
+width = int(reader.get(cv2.CAP_PROP_FRAME_WIDTH)) # 视频的高度
+height = int(reader.get(cv2.CAP_PROP_FRAME_HEIGHT)) # 视频的帧率
+fps = reader.get(cv2.CAP_PROP_FPS) # 视频的编码
+fourcc = int(reader.get(cv2.CAP_PROP_FOURCC)) # 定义视频输出
+writer = cv2.VideoWriter("./Videos/out.mp4", fourcc, fps, (width, height))
+```
+
 <a name="extra-trackbar"><h3>3.1. 外篇2：滑动条 [<sup>目录</sup>](#content)</h3></a>
 
 首先我们需要创建一个滑动条，如`cv2.createTrackbar('R','image',0,255,call_back)`，其中
@@ -436,3 +446,5 @@ print(hsv_blue)  # [[[120 255 255]]]
 (2) [ex2tron's Blog，【视觉与图像】OpenCV篇：Python+OpenCV实用教程 ](http://ex2tron.wang/opencv-python/)
 
 (3) [csdn博客：【树莓派】在OpenCV中调用CSI摄像头](https://blog.csdn.net/Deiki/article/details/71123947?utm_source=blogxgwz1)
+
+(4) [Python OpenCV3 读取和保存视频和解决保存失败的原因分析](https://blog.csdn.net/DumpDoctorWang/article/details/80515861)
