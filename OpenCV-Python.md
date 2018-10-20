@@ -171,6 +171,8 @@ while(True):
     cv2.imshow('frame', gray)
     if cv2.waitKey(1) == ord('q'):
         break
+capture.release()
+cv2.destroyAllWindows()
 ```
 
 函数参数说明：
@@ -206,6 +208,8 @@ while(capture.isOpened()):
     cv2.imshow('frame', gray)
     if cv2.waitKey(30) == ord('q'):
         break
+capture.release()
+cv2.destroyAllWindows()
 ```
 
 - **录制视频**
@@ -235,6 +239,9 @@ while(capture.isOpened()):
             break
     else:
         break
+capture.release()
+outfile.release()
+cv2.destroyAllWindows()
 ```
 
 <a name="extra-trackbar"><h3>3.1. 外篇2：滑动条 [<sup>目录</sup>](#content)</h3></a>
